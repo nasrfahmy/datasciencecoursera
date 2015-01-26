@@ -30,8 +30,30 @@ cacheSolve <- function(x, ...) {
                 message("getting cached data.")
                 return(inv)
         }
+        message("no cache in the first Run")
         data <- x$get()
         inv <- solve(data)
         x$setinverse(inv)
         inv
 }
+## to call the function, please follow the below steps
+## > x = rbind(c(1, -2), c(-2, 1))
+## > m = makeCacheMatrix(x)
+## > m$get()
+##       [,1]  [,2]
+## [1,]     1    -2 
+## [2,]    -2     1
+
+## No cache in the first run
+## > cacheSolve(m)
+##           [,1]      [,2]
+## [1,] -0.3333333 -0.6666667
+## [2,] -0.6666667 -0.3333333
+
+## Retrieving from the cache in the second run
+## > cacheSolve(m)
+## getting cached data.
+##           [,1]      [,2]
+## [1,] -0.3333333 -0.6666667
+## [2,] -0.6666667 -0.3333333
+## > 
